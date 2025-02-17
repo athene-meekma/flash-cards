@@ -27,4 +27,9 @@ This project allows you to create flash card packs for studying
    ```
    docker compose up --build -d
    ```
-6. Go to https://localhost or https://flash-cards.dev if you've completed the optional steps
+6. Install composer packages
+   ```
+   docker exec -it flash-cards-web bash
+   composer install
+   ```
+7. Go to https://localhost or https://flash-cards.dev if you've completed the optional steps
