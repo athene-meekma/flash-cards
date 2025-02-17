@@ -10,22 +10,21 @@ This project allows you to create flash card packs for studying
    ```
    cp .env.example .env
    ```
-3. Start the docker containers
-   ```
-   docker compose up --build -d
-   ```
-4. Go to https://localhost
-
-### Optional
-1. Generate certificates
+3. Generate certificates
    ```sh
    brew install mkcert
    brew install nss # if you use Firefox
    mkdir ssl
+   mkcert -key-file ssl/localhost-key.pem -cert-file ssl/localhost.pem localhost
+   # Optional:
    mkcert -key-file ssl/key.pem -cert-file ssl/cert.pem flash-cards.dev
    ```
-2. Add flash-cards.dev to `/etc/hosts`
+4. (Optional) Add flash-cards.dev to `/etc/hosts`
    ```
    127.0.0.1       localhost flash-cards.dev
    ```
-3. Go to https://flash-cards.dev
+5. Start the docker containers
+   ```
+   docker compose up --build -d
+   ```
+6. Go to https://localhost or https://flash-cards.dev if you've completed the optional steps
