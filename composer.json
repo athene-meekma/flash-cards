@@ -2,6 +2,7 @@
     "require": {
         "php": "^8.4",
         "codeigniter4/framework": "^4.6",
+        "components/font-awesome": "^6.5",
         "components/jquery": "^3.7",
         "twbs/bootstrap": "5.3.3",
         "vlucas/phpdotenv": "^5.6"
@@ -34,6 +35,8 @@
         "test": "phpunit",
         "post-install-cmd": [
             "cp vendor/components/jquery/jquery.min.js public/assets/js/jquery.min.js",
+            "cp vendor/components/font-awesome/css/all.css public/assets/css/all.css",
+            "cp -R vendor/components/font-awesome/webfonts public/assets/webfonts",
             "cp -R vendor/twbs/bootstrap/dist public/assets/bootstrap"
         ]
     }

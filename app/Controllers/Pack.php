@@ -10,10 +10,9 @@ class Pack extends BaseController
 {
     public function view(?int $pack_id = null): string
     {
-        $cardsModel = new Cards();
-        $data['pack_id'] = $pack_id;
-        $data['cards'] = $cardsModel->where('pack_id', $pack_id)->findAll();
-        return $this->template('cards', $data); 
+        $data['pack']  = (new Packs())->find($pack_id);
+        $data['cards'] = (new Cards())->where('pack_id', $pack_id)->findAll();
+        return $this->template('cards', $data);
     }
 
     public function create(): RedirectResponse
@@ -25,7 +24,7 @@ class Pack extends BaseController
         ];
         $packsModel = new Packs();
         $packsModel->insert($fields);
-        
+
         return redirect('/');
     }
 
@@ -41,7 +40,17 @@ class Pack extends BaseController
         ];
         $cardsModel = new Cards();
         $cardsModel->upsert($fields);
-        
+
+        return redirect()->to($_SERVER['HTTP_REFERER']);
+    }
+
+    public function cardDelete(): RedirectResponse
+    {
+        $data = $this->request->getPost();
+
+        $card = (new Cards())->find($id);
+        $cardsModel->upsert($fields);
+
         return redirect()->to($_SERVER['HTTP_REFERER']);
     }
 }

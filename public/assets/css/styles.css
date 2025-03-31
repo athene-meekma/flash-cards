@@ -1,4 +1,22 @@
-.add-button {
-    display: block; 
+.add {
+    display: block;
     margin: 10px 10px 10px auto;
+}
+
+.card-item {
+    display: inline-block;
+    word-wrap: break-word;
+    min-height: 48px;
+}
+
+.card-item > span {
+    padding-top: 3px;
+}
+
+.edit-buttons {
+    display: none;
+}
+
+.list-group-item:hover .edit-buttons {
+    display: inline-flex;
 }

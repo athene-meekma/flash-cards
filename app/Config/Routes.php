@@ -11,3 +11,4 @@ $routes->post('/pack/create', 'Pack::create');
 $routes->get('/pack/(:num)', 'Pack::view/$1');
 
 $routes->post('/card/upsert', 'Pack::cardUpsert');
+$routes->post('/card/delete', 'Pack::cardDelete');
