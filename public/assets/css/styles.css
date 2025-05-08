@@ -1,12 +1,11 @@
-.add {
-    display: block;
-    margin: 10px 10px 10px auto;
+.list {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-
 .card-item {
     display: inline-block;
     word-wrap: break-word;
-    min-height: 48px;
 }
 
 .card-item > span {
@@ -19,4 +18,31 @@
 
 .list-group-item:hover .edit-buttons {
     display: inline-flex;
+}
+
+.list-group-item:hover .card-count {
+    display: none;
+}
+
+#flash-card {
+    align-items: center;
+    display: flex;
+    font-size: xx-large;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#flash-card-text {
+    display: flex;
+    justify-content: center;
+}
+
+#sound-clip {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+#flip {
+    margin: auto;
 }

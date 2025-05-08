@@ -15,15 +15,26 @@ class Pack extends BaseController
         return $this->template('cards', $data);
     }
 
-    public function create(): RedirectResponse
+    public function packUpsert(): RedirectResponse
     {
         $data = $this->request->getPost();
 
         $fields = [
+            'id'   => $data['pack_id'],
             'name' => $data['packName']
         ];
         $packsModel = new Packs();
-        $packsModel->insert($fields);
+        $packsModel->upsert($fields);
+
+        return redirect('/');
+    }
+
+    public function packDelete(): RedirectResponse
+    {
+        $data = $this->request->getPost();
+
+        $packsModel = new Packs();
+        $packsModel->delete($data['pack_id']);
 
         return redirect('/');
     }
@@ -37,6 +48,7 @@ class Pack extends BaseController
             'pack_id' => $data['pack_id'],
             'word' => $data['word'],
             'definition' => $data['definition'],
+            'sound_clip' => $data['sound_clip'],
         ];
         $cardsModel = new Cards();
         $cardsModel->upsert($fields);
@@ -48,8 +60,8 @@ class Pack extends BaseController
     {
         $data = $this->request->getPost();
 
-        $card = (new Cards())->find($id);
-        $cardsModel->upsert($fields);
+        $card = new Cards();
+        $card->delete($data['card_id']);
 
         return redirect()->to($_SERVER['HTTP_REFERER']);
     }
