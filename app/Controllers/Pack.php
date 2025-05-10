@@ -20,11 +20,12 @@ class Pack extends BaseController
         $data = $this->request->getPost();
 
         $fields = [
-            'id'   => $data['pack_id'],
+            'id' => $data['pack_id'],
             'name' => $data['packName']
         ];
+
         $packsModel = new Packs();
-        $packsModel->upsert($fields);
+        $packsModel->save($fields);
 
         return redirect('/');
     }
@@ -51,7 +52,7 @@ class Pack extends BaseController
             'sound_clip' => $data['sound_clip'],
         ];
         $cardsModel = new Cards();
-        $cardsModel->upsert($fields);
+        $cardsModel->save($fields);
 
         return redirect()->to($_SERVER['HTTP_REFERER']);
     }

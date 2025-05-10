@@ -24,7 +24,7 @@
     $('#flash-card-text').text(thisCard[front]);
 
     // Show sound if it exists and we're showing definition
-    let showSound = thisCard.sound_clip && front == 'definition';
+    let showSound = Boolean(thisCard.sound_clip && front == 'definition');
     $('#sound-clip').toggle(showSound);
     $('#sound-clip').attr('autoplay', showSound);
     $('#sound-clip').attr('src', thisCard.sound_clip);
@@ -34,6 +34,7 @@
     var front = localStorage.getItem('front') ?? 'word';
 
     $('.practice').on('click', function(e){
+      front = localStorage.getItem('front') ?? 'word';
       shuffleArray(card_ids);
       $('#practiceTitle').html('Practice <?=$pack['name']?>!');
       showCard(front);
@@ -41,11 +42,11 @@
 
     $('#flip').on('click', function(){
       front = front === 'word' ? 'definition' : 'word';
-      localStorage.setItem('front', front);
       showCard(front);
     });
 
     $('#next, #previous').on('click', function(){
+      front = localStorage.getItem('front') ?? 'word';
       showCard(front, $(this).val());
     })
   });

@@ -33,10 +33,10 @@ class Cards extends Model
 
     // Validation
     protected $validationRules      = [
-        'id'         => 'int',
-        'pack_id'    => 'required|int',
-        'word'       => 'required|max_length[255]|alpha_numeric_space|min_length[1]',
-        'definition' => 'required|max_length[255]|alpha_numeric_space|min_length[1]',
+        'id'         => 'permit_empty|integer',
+        'pack_id'    => 'required|integer',
+        'word'       => 'required|max_length[255]|min_length[1]|is_unique[cards.word,packs.id]',
+        'definition' => 'required|max_length[255]|min_length[1]',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;

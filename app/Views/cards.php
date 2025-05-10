@@ -1,30 +1,43 @@
 <script>
-    const cards = <?=json_encode(array_combine(array_column($cards, 'id'), array_values($cards)))?>;
+  const cards = <?=json_encode(array_combine(array_column($cards, 'id'), array_values($cards)))?>;
+  var front = localStorage.getItem('front') ?? 'word';
 
-    $(document).on("click", ".add, .edit", function () {
-      let card_id = $(this).data('id');
-      let title = $(this).hasClass('add') ? 'Add Card' : 'Edit Card';
+  $(document).on("click", ".add, .edit", function () {
+    let card_id = $(this).data('id');
+    let title = $(this).hasClass('add') ? 'Add Card' : 'Edit Card';
 
-      $("#card_id", $('#editCard')).val(card_id);
-      $('#editTitle').html(title);
+    $("#card_id", $('#editCard')).val(card_id);
+    $('#editTitle').html(title);
 
-      if(card_id === undefined){
-        $('#edit-form').get(0).reset();
-      }else{
-        $("#word").val(cards[card_id].word);
-        $("#definition").val(cards[card_id].definition);
-        $("#sound_clip").val(cards[card_id].sound_clip);
-      }
+    if(card_id === undefined){
+      $('#edit-form').get(0).reset();
+    }else{
+      $("#word").val(cards[card_id].word);
+      $("#definition").val(cards[card_id].definition);
+      $("#sound_clip").val(cards[card_id].sound_clip);
+    }
 
-      $('#editCard').modal('show');
+    $('#editCard').modal('show');
+  });
+
+  $(document).on("click", ".delete", function () {
+    let card_id = $(this).data('id');
+    $("#card_id", $('#deleteCard')).val(card_id);
+    $("#delete-word").html(cards[card_id].word);
+    $('#deleteCard').modal('show');
+  });
+
+  $(document).ready(function() {
+    $('.'+front).show();
+
+    $('#switch').on('click', function(){
+      front = front === 'word' ? 'definition' : 'word';
+      localStorage.setItem('front', front);
+
+      $('.word').toggle();
+      $('.definition').toggle();
     });
-
-    $(document).on("click", ".delete", function () {
-      let card_id = $(this).data('id');
-      $("#card_id", $('#deleteCard')).val(card_id);
-      $("#delete-word").html(cards[card_id].word);
-      $('#deleteCard').modal('show');
-    });
+  });
 </script>
 
 <div class="col-lg-6 list">
@@ -33,6 +46,9 @@
       <h3 class="list-group-item-heading">
         <?=$pack['name']?>
         <div class="btn-group" role="group" style="float: right">
+          <button type="button" class="btn btn-sm btn-info" id="switch">
+            <i class="fa-solid fa-retweet"></i>
+          </button>
           <button type="button" class="btn btn-sm btn-info practice" data-bs-toggle="modal" data-bs-target="#practice">
             <i class="fa-solid fa-language"></i>
           </button>
@@ -47,7 +63,8 @@
           href="#"
           class="list-group-item list-group-item-action list-group-item-light d-flex justify-content-between card-item"
         >
-          <span><?= $card['word'] ?></span>
+          <span class="word" style="display: none"><?= $card['word'] ?></span>
+          <span class="definition" style="display: none"><?= $card['definition'] ?></span>
 
           <div class="btn-group edit-buttons" role="group">
             <button type="button" class="btn btn-sm btn-info edit" data-id="<?=$card['id']?>"><i class="fa-solid fa-pencil"></i></button>
@@ -78,7 +95,7 @@
           </div>
           <div class="mb-3">
             <label for="sound_clip" class="form-label">Sound Clip</label>
-            <input type="text" class="form-control" id="sound_clip" name="sound_clip" maxlength="255" required>
+            <input type="text" class="form-control" id="sound_clip" name="sound_clip" maxlength="255">
           </div>
         </div>
         <div class="modal-footer">

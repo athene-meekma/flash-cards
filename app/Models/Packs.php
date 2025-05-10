@@ -13,6 +13,7 @@ class Packs extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'id',
         'name',
     ];
 
@@ -30,10 +31,11 @@ class Packs extends Model
 
     // Validation
     protected $validationRules = [
-        'name' => 'required|max_length[255]|alpha_numeric_space|min_length[1]',
+        'id'   => 'permit_empty|integer',
+        'name' => 'required|max_length[255]|min_length[1]|is_unique[packs.name]',
     ];
     protected $validationMessages = [
-        'email' => [
+        'name' => [
             'is_unique' => 'Sorry. That pack name is already in use.',
         ],
     ];
@@ -50,7 +52,7 @@ class Packs extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
+
     public function getPacks(): array
     {
         $sql = "
