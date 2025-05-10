@@ -17,6 +17,7 @@ class Cards extends Model
         'pack_id',
         'word',
         'definition',
+        'sound_clip',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -35,8 +36,9 @@ class Cards extends Model
     protected $validationRules      = [
         'id'         => 'permit_empty|integer',
         'pack_id'    => 'required|integer',
-        'word'       => 'required|max_length[255]|min_length[1]|is_unique[cards.word,packs.id]',
+        'word'       => 'required|max_length[255]|min_length[1]|is_unique[cards.word,cards.pack_id,{pack_id}]',
         'definition' => 'required|max_length[255]|min_length[1]',
+        'sound_clip' => 'permit_empty|max_length[255]',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;

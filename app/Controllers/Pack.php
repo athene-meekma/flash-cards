@@ -51,6 +51,7 @@ class Pack extends BaseController
             'definition' => $data['definition'],
             'sound_clip' => $data['sound_clip'],
         ];
+        log_message('debug', print_r($fields, true));
         $cardsModel = new Cards();
         $cardsModel->save($fields);
 
